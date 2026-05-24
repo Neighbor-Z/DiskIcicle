@@ -1,0 +1,373 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A22E7E8F36A4DEFAB263DCD /* DiskIcicleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DB57C73F9B403C9FCB800F /* DiskIcicleApp.swift */; };
+		2A05A3B50DC74E1FA04BC1CE /* DiskUsageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD8E099A735445D8DC56A9C /* DiskUsageViewModel.swift */; };
+		71C0B8AC44F94AFBA099F0F4 /* PanZoomGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB3E5DD4924B7DAB38CFF5 /* PanZoomGestureView.swift */; };
+		A7B6C5D4E3F2A1B0C9D8E7F6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C9E0F1A2B3C4D5E6F7A8B9C0 /* Localizable.xcstrings */; };
+		B9D7297749964FBBA0CB2906 /* FileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7D2B3B223B4E1FACE9A135 /* FileNode.swift */; };
+		C49C9448D42F48B4B4D1E443 /* FileScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEBF75384184567A22A82A6 /* FileScanner.swift */; };
+		C7F081622F79044000D00137 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = C7F081612F79044000D00137 /* AppIcon.icon */; };
+		CFD5593E81C8436799958F66 /* IcicleChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE24C3ABBA2480F89A0AAFA /* IcicleChartView.swift */; };
+		D15CCE51996541D886675B83 /* DiskUsageImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15CCE51996541D886675B82 /* DiskUsageImporter.swift */; };
+		E4FC5E01F43840C7BF80E289 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3767DDDAABD41E1B539EA84 /* ContentView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		32EB3E5DD4924B7DAB38CFF5 /* PanZoomGestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanZoomGestureView.swift; sourceTree = "<group>"; };
+		465FBDD98791413E8FA3D434 /* DiskIcicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = DiskIcicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		50DB57C73F9B403C9FCB800F /* DiskIcicleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskIcicleApp.swift; sourceTree = "<group>"; };
+		8FEBF75384184567A22A82A6 /* FileScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScanner.swift; sourceTree = "<group>"; };
+		9CE24C3ABBA2480F89A0AAFA /* IcicleChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IcicleChartView.swift; sourceTree = "<group>"; };
+		BB7D2B3B223B4E1FACE9A135 /* FileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileNode.swift; sourceTree = "<group>"; };
+		C3767DDDAABD41E1B539EA84 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C7F081612F79044000D00137 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
+		C9E0F1A2B3C4D5E6F7A8B9C0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		CAD8E099A735445D8DC56A9C /* DiskUsageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskUsageViewModel.swift; sourceTree = "<group>"; };
+		D15CCE51996541D886675B82 /* DiskUsageImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskUsageImporter.swift; sourceTree = "<group>"; };
+		F52699684F73408CB0C350A7 /* disk-usage-tree-map-troll.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "disk-usage-tree-map-troll.entitlements"; sourceTree = "<group>"; };
+		F8AE39F93A334E7EA28781D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		83107DF9126B4F4987A8EDD4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		572144021F274EAEAB017B2F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9CE24C3ABBA2480F89A0AAFA /* IcicleChartView.swift */,
+				32EB3E5DD4924B7DAB38CFF5 /* PanZoomGestureView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9388CF38E51D48AC8C6CF6EC = {
+			isa = PBXGroup;
+			children = (
+				F5687FF923624610B458B163 /* DiskIcicle */,
+				D8DA79564CF94D0E858C35D6 /* Products */,
+				F52699684F73408CB0C350A7 /* disk-usage-tree-map-troll.entitlements */,
+			);
+			sourceTree = "<group>";
+		};
+		D7A063D1376E4281BF0DF2A9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CAD8E099A735445D8DC56A9C /* DiskUsageViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D8DA79564CF94D0E858C35D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				465FBDD98791413E8FA3D434 /* DiskIcicle.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E2E998DF5FBA4873A08146DE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BB7D2B3B223B4E1FACE9A135 /* FileNode.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F2A769315A3E43828FCE1129 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8FEBF75384184567A22A82A6 /* FileScanner.swift */,
+				D15CCE51996541D886675B82 /* DiskUsageImporter.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F5687FF923624610B458B163 /* DiskIcicle */ = {
+			isa = PBXGroup;
+			children = (
+				C7F081612F79044000D00137 /* AppIcon.icon */,
+				50DB57C73F9B403C9FCB800F /* DiskIcicleApp.swift */,
+				C3767DDDAABD41E1B539EA84 /* ContentView.swift */,
+				C9E0F1A2B3C4D5E6F7A8B9C0 /* Localizable.xcstrings */,
+				D7A063D1376E4281BF0DF2A9 /* ViewModels */,
+				E2E998DF5FBA4873A08146DE /* Models */,
+				F2A769315A3E43828FCE1129 /* Services */,
+				572144021F274EAEAB017B2F /* Views */,
+				F8AE39F93A334E7EA28781D6 /* Info.plist */,
+			);
+			path = DiskIcicle;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A4A80971DDB9483BA2D6AB6B /* DiskIcicle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E84E8F6FC19A4130BFAAFDA6 /* Build configuration list for PBXNativeTarget "DiskIcicle" */;
+			buildPhases = (
+				86F1E57570BE4F179041CE6E /* Sources */,
+				F0A29B1E772147F6B3F84930 /* Resources */,
+				83107DF9126B4F4987A8EDD4 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DiskIcicle;
+			productName = DiskIcicle;
+			productReference = 465FBDD98791413E8FA3D434 /* DiskIcicle.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		871D1DA6ED7348B2AEA1925D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2610;
+				TargetAttributes = {
+					A4A80971DDB9483BA2D6AB6B = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = 0EE51A604BFD432080B98A8A /* Build configuration list for PBXProject "DiskIcicle" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+				"zh-Hant",
+				ja,
+				ko,
+				de,
+				fr,
+				es,
+				el,
+			);
+			mainGroup = 9388CF38E51D48AC8C6CF6EC;
+			productRefGroup = D8DA79564CF94D0E858C35D6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A4A80971DDB9483BA2D6AB6B /* DiskIcicle */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F0A29B1E772147F6B3F84930 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7B6C5D4E3F2A1B0C9D8E7F6 /* Localizable.xcstrings in Resources */,
+				C7F081622F79044000D00137 /* AppIcon.icon in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		86F1E57570BE4F179041CE6E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9D7297749964FBBA0CB2906 /* FileNode.swift in Sources */,
+				C49C9448D42F48B4B4D1E443 /* FileScanner.swift in Sources */,
+				D15CCE51996541D886675B83 /* DiskUsageImporter.swift in Sources */,
+				E4FC5E01F43840C7BF80E289 /* ContentView.swift in Sources */,
+				1A22E7E8F36A4DEFAB263DCD /* DiskIcicleApp.swift in Sources */,
+				2A05A3B50DC74E1FA04BC1CE /* DiskUsageViewModel.swift in Sources */,
+				CFD5593E81C8436799958F66 /* IcicleChartView.swift in Sources */,
+				71C0B8AC44F94AFBA099F0F4 /* PanZoomGestureView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BA700344B98C48F7BB9C1DFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BF37925798664142AFB80513 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C728B7ABD9DE4F7F97FBAD97 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = DiskIcicle/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Disk Icicle";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.neighborz.DiskIcicle;
+				PRODUCT_NAME = DiskIcicle;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CEB6E414371644FAA53F65F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = DiskIcicle/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Disk Icicle";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.neighborz.DiskIcicle;
+				PRODUCT_NAME = DiskIcicle;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0EE51A604BFD432080B98A8A /* Build configuration list for PBXProject "DiskIcicle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA700344B98C48F7BB9C1DFB /* Debug */,
+				BF37925798664142AFB80513 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E84E8F6FC19A4130BFAAFDA6 /* Build configuration list for PBXNativeTarget "DiskIcicle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEB6E414371644FAA53F65F0 /* Debug */,
+				C728B7ABD9DE4F7F97FBAD97 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 871D1DA6ED7348B2AEA1925D /* Project object */;
+}
