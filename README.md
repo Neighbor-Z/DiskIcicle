@@ -63,7 +63,7 @@ Then select this text file in Disk Icicle.
 
 ## License
 
--
+- [GPL](https://github.com/Neighbor-Z/DiskIcicle/blob/main/LICENSE)
 
 ## Last but not least
 
