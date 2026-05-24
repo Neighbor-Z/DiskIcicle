@@ -10,7 +10,7 @@
 
 [![Swift 5.9+](https://img.shields.io/badge/Swift-5.9%2B-orange.svg?style=flat)](https://github.com/Neighbor-Z/DiskIcicle/)[![Platform: macOS 12.0+](https://img.shields.io/badge/Platform-macOS%2012.0%2B-blue.svg?style=flat)](https://github.com/Neighbor-Z/DiskIcicle/releases/latest)[![Platform: iOS 15.0+](https://img.shields.io/badge/Platform-iOS%2015.0%2B-blue.svg?style=flat)](https://github.com/Neighbor-Z/DiskIcicle/releases/latest)
 
-Disk Icicle is a disk usage visualization tool developed based on SwiftUI. It uses an **Icicle Treemap** to intuitively display the space occupancy of folders and files, helping users quickly locate large files and bloated directories.
+Disk Icicle is a disk usage visualization tool developed based on Swift. It uses an **Icicle Treemap** to intuitively display the space occupancy of folders and files, helping users quickly locate large files and bloated directories.
 
 ## Core Features
 
