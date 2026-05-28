@@ -13,13 +13,14 @@ struct FileScanner {
 
     static func scan(rootURL: URL) async -> FileNode {
         let standardizedRoot = rootURL.standardizedFileURL
+        let excludedPaths = UserDefaults.standard.stringArray(forKey: "userExcludedPaths") ?? []
         // Use a detached task to avoid blocking the MainActor
         return await Task.detached(priority: .userInitiated) {
-            return await scanNodeConcurrent(url: standardizedRoot, rootURL: standardizedRoot, allocateChildren: true)
+            return await scanNodeConcurrent(url: standardizedRoot, rootURL: standardizedRoot, allocateChildren: true, excludedPaths: excludedPaths)
         }.value
     }
 
-    private static func scanNodeConcurrent(url: URL, rootURL: URL, allocateChildren: Bool) async -> FileNode {
+    private static func scanNodeConcurrent(url: URL, rootURL: URL, allocateChildren: Bool, excludedPaths: [String]) async -> FileNode {
         let name = url.lastPathComponent.isEmpty ? url.path : url.lastPathComponent
         let values = try? url.resourceValues(forKeys: resourceKeys)
         let isSymbolicLink = values?.isSymbolicLink ?? false
@@ -57,9 +58,13 @@ struct FileScanner {
                             path == "/Volumes" || path == "/dev" || path == "/Network" || path == "/cores" {
                             continue
                         }
+                        
+                        if excludedPaths.contains(where: { path == $0 || path.hasPrefix($0 + "/") }) {
+                            continue
+                        }
 
                         group.addTask {
-                            return await scanNodeConcurrent(url: childURL, rootURL: rootURL, allocateChildren: shouldAllocateChildren)
+                            return await scanNodeConcurrent(url: childURL, rootURL: rootURL, allocateChildren: shouldAllocateChildren, excludedPaths: excludedPaths)
                         }
                     }
                     

@@ -19,6 +19,12 @@ struct DiskUsageMapApp: App {
         }
         .windowResizability(.contentSize)
         .defaultSize(width: 1000, height: 600)
+        
+        #if os(macOS)
+        Settings {
+            SettingsView()
+        }
+        #endif
     }
 }
 
@@ -27,5 +33,11 @@ struct DiskUsageMapAppLegacy: App {
         WindowGroup {
             ContentView()
         }
+        
+        #if os(macOS)
+        Settings {
+            SettingsView()
+        }
+        #endif
     }
 }
