@@ -21,10 +21,32 @@ class FlippedView: NSView {
     private var scrollEndTimer: Timer?
 
     override func scrollWheel(with event: NSEvent) {
-        // Ignore mouse-wheel (non-trackpad) events so they don't conflict.
-        // hasPreciseScrollingDeltas == true for trackpads; false for a mouse wheel.
-        guard event.hasPreciseScrollingDeltas else {
-            super.scrollWheel(with: event)
+        let isZoomModifierPressed = event.modifierFlags.contains(.option) || event.modifierFlags.contains(.command)
+        
+        // If it's a mouse wheel event (non-trackpad) or a modifier-held scroll event, perform zoom.
+        if !event.hasPreciseScrollingDeltas || isZoomModifierPressed {
+            let dy = event.scrollingDeltaY
+            if dy == 0 { return }
+
+            let location = convert(event.locationInWindow, from: nil)
+            
+            // Adjust sensitivity: trackpad events with precise deltas are much higher frequency and smaller value per event,
+            // whereas mouse wheel events are discrete ticks (typically +/- 1.0 or more per tick).
+            let zoomFactor: CGFloat
+            if event.hasPreciseScrollingDeltas {
+                // Precise scrolling deltas (trackpad scroll with modifier key held down)
+                // Use a smaller base for smoother continuous zooming (e.g. 1.005)
+                zoomFactor = CGFloat(pow(1.005, Double(dy)))
+            } else {
+                // Non-precise scrolling deltas (mouse wheel scroll)
+                // Use a larger base for responsive step zooming (e.g. 1.1)
+                zoomFactor = CGFloat(pow(1.1, Double(dy)))
+            }
+            
+            if let coordinator = scrollCoordinator {
+                coordinator.parent.onPinch(zoomFactor, location)
+                coordinator.parent.onPinchEnded()
+            }
             return
         }
 
