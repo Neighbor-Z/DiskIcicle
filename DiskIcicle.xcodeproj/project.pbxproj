@@ -13,6 +13,7 @@
 		A7B6C5D4E3F2A1B0C9D8E7F6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C9E0F1A2B3C4D5E6F7A8B9C0 /* Localizable.xcstrings */; };
 		B9D7297749964FBBA0CB2906 /* FileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7D2B3B223B4E1FACE9A135 /* FileNode.swift */; };
 		C49C9448D42F48B4B4D1E443 /* FileScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEBF75384184567A22A82A6 /* FileScanner.swift */; };
+		C7A70E812FC3321100720F44 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A70E802FC3320A00720F44 /* SettingsView.swift */; };
 		C7F081622F79044000D00137 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = C7F081612F79044000D00137 /* AppIcon.icon */; };
 		CFD5593E81C8436799958F66 /* IcicleChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE24C3ABBA2480F89A0AAFA /* IcicleChartView.swift */; };
 		D15CCE51996541D886675B83 /* DiskUsageImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15CCE51996541D886675B82 /* DiskUsageImporter.swift */; };
@@ -27,6 +28,7 @@
 		9CE24C3ABBA2480F89A0AAFA /* IcicleChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IcicleChartView.swift; sourceTree = "<group>"; };
 		BB7D2B3B223B4E1FACE9A135 /* FileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileNode.swift; sourceTree = "<group>"; };
 		C3767DDDAABD41E1B539EA84 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C7A70E802FC3320A00720F44 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C7F081612F79044000D00137 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		C9E0F1A2B3C4D5E6F7A8B9C0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		CAD8E099A735445D8DC56A9C /* DiskUsageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskUsageViewModel.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		F5687FF923624610B458B163 /* DiskIcicle */ = {
 			isa = PBXGroup;
 			children = (
+				C7A70E802FC3320A00720F44 /* SettingsView.swift */,
 				C7F081612F79044000D00137 /* AppIcon.icon */,
 				50DB57C73F9B403C9FCB800F /* DiskIcicleApp.swift */,
 				C3767DDDAABD41E1B539EA84 /* ContentView.swift */,
@@ -195,6 +198,7 @@
 				D15CCE51996541D886675B83 /* DiskUsageImporter.swift in Sources */,
 				E4FC5E01F43840C7BF80E289 /* ContentView.swift in Sources */,
 				1A22E7E8F36A4DEFAB263DCD /* DiskIcicleApp.swift in Sources */,
+				C7A70E812FC3321100720F44 /* SettingsView.swift in Sources */,
 				2A05A3B50DC74E1FA04BC1CE /* DiskUsageViewModel.swift in Sources */,
 				CFD5593E81C8436799958F66 /* IcicleChartView.swift in Sources */,
 				71C0B8AC44F94AFBA099F0F4 /* PanZoomGestureView.swift in Sources */,
@@ -292,8 +296,9 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DiskIcicle/Info.plist;
@@ -301,7 +306,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = me.neighborz.DiskIcicle;
 				PRODUCT_NAME = DiskIcicle;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -323,8 +328,9 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DiskIcicle/Info.plist;
@@ -332,7 +338,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = me.neighborz.DiskIcicle;
 				PRODUCT_NAME = DiskIcicle;
 				PROVISIONING_PROFILE_SPECIFIER = "";
