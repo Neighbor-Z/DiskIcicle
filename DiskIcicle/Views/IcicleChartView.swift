@@ -124,7 +124,7 @@ struct IcicleChartView: View {
                 viewportHeight = proxy.size.height
                 contentSize = CGSize(width: columnWidth * CGFloat(depth(of: root) + 1), height: proxy.size.height)
             }
-            .onChange(of: root.url) { _ in
+            .onChange(of: root.id) { _ in
                 viewportHeight = proxy.size.height
                 contentSize = CGSize(width: columnWidth * CGFloat(depth(of: root) + 1), height: proxy.size.height)
                 // Reset scale when switching directories
@@ -287,7 +287,7 @@ struct IcicleChartView: View {
     // The renderer is nested and deliberately holds only the data necessary for drawing.
     struct IcicleCanvasLayer: View, Equatable {
         let root: FileNode
-        let selectedNodeID: URL?
+        let selectedNodeID: UUID?
         let offset: CGSize
         let scale: CGFloat
         let minChildPixelHeight: CGFloat
@@ -330,7 +330,7 @@ struct IcicleChartView: View {
 
         private func drawNode(
             node: FileNode,
-            selectedNodeID: URL?,
+            selectedNodeID: UUID?,
             x: CGFloat,
             y: CGFloat,
             height: CGFloat,

@@ -17,11 +17,26 @@ final class DiskUsageViewModel: ObservableObject {
     private var scanTask: Task<Void, Never>?
 
     func startScan(rootURL: URL? = nil) {
-        scanTask?.cancel()
+        // Cancel and await the previous scan to fully stop before starting a new one.
+        // This prevents two concurrent scans from competing for resources.
+        let previousTask = scanTask
+        scanTask = nil
+        previousTask?.cancel()
+        
+        // Release old tree to free memory before starting a new scan
+        rootNode = nil
+        currentRoot = nil
+        selectedNode = nil
+        
         isScanning = true
         errorMessage = nil
 
         scanTask = Task {
+            await previousTask?.value
+            if Task.isCancelled {
+                isScanning = false
+                return
+            }
             do {
                 let node: FileNode
                 
@@ -139,15 +154,22 @@ final class DiskUsageViewModel: ObservableObject {
                 #endif
                 
                 if Task.isCancelled { return }
+                
+                // Compact the tree to release excess array capacity accumulated
+                // during scan (append-based growth typically over-allocates by 2×).
+                node.compactMemory()
+                
                 rootNode = node
                 currentRoot = node
                 selectedNode = node
                 isScanning = false
                 
+                scanTask = nil
             } catch {
                 if Task.isCancelled { return }
                 isScanning = false
                 errorMessage = error.localizedDescription
+                scanTask = nil
             }
         }
     }
@@ -169,7 +191,7 @@ final class DiskUsageViewModel: ObservableObject {
 
     func stepUp() {
         guard let rootNode, let current = currentRoot else { return }
-        if rootNode.url == current.url {
+        if rootNode === current {
             return
         }
         let pathNodes = path(from: rootNode, to: current)
@@ -185,17 +207,18 @@ final class DiskUsageViewModel: ObservableObject {
 
     func cancelScan() {
         scanTask?.cancel()
+        scanTask = nil
         isScanning = false
     }
 
     var breadcrumb: [FileNode] {
         guard let rootNode, let currentRoot else { return [] }
-        if rootNode.url == currentRoot.url { return [rootNode] }
+        if rootNode === currentRoot { return [rootNode] }
         return path(from: rootNode, to: currentRoot)
     }
 
     private func path(from root: FileNode, to target: FileNode) -> [FileNode] {
-        if root.url == target.url { return [root] }
+        if root === target { return [root] }
         guard let children = root.children else { return [] }
         for child in children {
             let sub = path(from: child, to: target)

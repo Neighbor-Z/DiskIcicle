@@ -6,21 +6,54 @@ enum FileNodeType: String, Codable {
     case folder
 }
 
-struct FileNode: Identifiable, Hashable {
-    var id: URL { url }
+final class FileNode: Identifiable, Hashable {
+    nonisolated let id = UUID()
 
     let name: String
-    let url: URL
+    /// Lightweight string path
+    let path: String
     var size: Int64
     var children: [FileNode]?
     let type: FileNodeType
 
-    init(name: String, url: URL, size: Int64, children: [FileNode]? = nil, type: FileNodeType) {
+    /// Lazily computed URL from the stored string path (only materialised when needed)
+    var url: URL { URL(fileURLWithPath: path) }
+
+    init(name: String, path: String, size: Int64, children: [FileNode]? = nil, type: FileNodeType) {
         self.name = name
-        self.url = url
+        self.path = path
         self.size = size
         self.children = children
         self.type = type
+    }
+
+    /// Convenience initialiser that accepts a URL (for call-site compatibility during migration)
+    convenience init(name: String, url: URL, size: Int64, children: [FileNode]? = nil, type: FileNodeType) {
+        self.init(name: name, path: url.path, size: size, children: children, type: type)
+    }
+
+    // MARK: - Hashable (identity-based, since this is a reference type)
+    nonisolated func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    static func == (lhs: FileNode, rhs: FileNode) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    /// Compact memory after the tree is fully built.
+    /// Trims excess capacity from children arrays, recursively.
+    func compactMemory() {
+        guard var kids = children else { return }
+        // Array.append() growth strategy can leave up to 2× capacity.
+        // After the tree is final, trim to exact size.
+        if kids.capacity > kids.count {
+            kids = Array(kids)       // re-allocate to exact count
+            children = kids
+        }
+        for child in kids {
+            child.compactMemory()
+        }
     }
 
     var color: Color {
@@ -35,7 +68,13 @@ struct FileNode: Identifiable, Hashable {
             Color(red: 0.78, green: 0.73, blue: 0.67)  // taupe
         ]
 
-        let key = type == .folder ? url.path : url.pathExtension.lowercased()
+        // For files, use extension for color (much cheaper than full path hash)
+        let key: String
+        if type == .folder {
+            key = name  // folder name is stable enough for color
+        } else {
+            key = (name as NSString).pathExtension.lowercased()
+        }
         let hash = abs(key.hashValue)
         return palette[hash % palette.count]
     }

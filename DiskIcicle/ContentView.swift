@@ -305,7 +305,7 @@ struct ContentView: View {
                     Text(selected.name)
                         .font(.subheadline)
                         .lineLimit(1)
-                    Text(selected.url.path)
+                    Text(selected.path)
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                         .truncationMode(.middle)
@@ -327,9 +327,8 @@ struct ContentView: View {
             // File list
             List {
                 if let current = viewModel.currentRoot, let children = current.children {
-                    // Note: Although sorted is used in the List here, the data volume is small and shouldn't lag.
-                    // The real performance killer is sorted inside the chart.
-                    ForEach(children.sorted(by: { $0.size > $1.size })) { node in
+                    // Children are pre-sorted by size during scanning
+                    ForEach(children) { node in
                         Button {
                             viewModel.zoomIn(to: node)
                         } label: {
@@ -377,7 +376,7 @@ struct ContentView: View {
                             Text(selected.name)
                                 .font(.headline)
                         }
-                        Text(selected.url.path)
+                        Text(selected.path)
                             .font(.caption)
                             .lineLimit(nil)
                             .foregroundStyle(.secondary)
@@ -432,7 +431,7 @@ struct ContentView: View {
                 .disabled(viewModel.breadcrumb.count <= 1)
 
                 if let current = viewModel.currentRoot, let children = current.children {
-                    ForEach(children.sorted(by: { $0.size > $1.size })) { node in
+                    ForEach(children) { node in
                         Button {
                             viewModel.zoomIn(to: node)
                         } label: {

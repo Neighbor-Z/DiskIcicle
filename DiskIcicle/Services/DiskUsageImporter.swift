@@ -30,7 +30,7 @@ private class IntermediateNode {
 
         return FileNode(
             name: name,
-            url: URL(fileURLWithPath: path),
+            path: path,
             size: finalSize,
             children: childNodes.isEmpty ? nil : childNodes,
             type: childNodes.isEmpty ? .file : .folder 
