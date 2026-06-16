@@ -376,15 +376,48 @@ struct IcicleChartView: View {
                 // 3. Constant Font Size
                 let fontSize: CGFloat = 11
                 
-                let minHeightForText = max(minLabelHeight, fontSize * 1.1)
+                let minHeightForText = max(minLabelHeight, fontSize * 1.1)+3
 
                 if rect.height >= minHeightForText {
-                    let sizeText = ByteCountFormatter.string(fromByteCount: node.size, countStyle: .file)
-                    let label = Text("\(node.name)\n\(sizeText)")
-                        .font(.system(size: fontSize, weight: .semibold))
-
                     let textRect = rect.insetBy(dx: 6, dy: 4)
-                    context.draw(label, in: textRect)
+                    
+                    if textRect.height > 0 && textRect.width > 0 {
+                        let font = Font.system(size: fontSize, weight: .semibold)
+                        let lineHeight = 14.0
+
+                        let maxLines = max(1, Int(textRect.height / lineHeight))
+
+                        let nameLabel = Text(node.name).font(font)
+                        let resolvedName = context.resolve(nameLabel)
+
+                        if maxLines == 1 {
+                            let nameMeasureSize = CGSize(width: textRect.width, height: lineHeight)
+                            let nameSize = resolvedName.measure(in: nameMeasureSize)
+                            
+                            let nameRect = CGRect(x: textRect.minX, y: textRect.minY, width: textRect.width, height: nameSize.height)
+                            
+                            context.draw(resolvedName, in: nameRect)
+                        } else {
+                            let sizeText = ByteCountFormatter.string(fromByteCount: node.size, countStyle: .file)
+                            let sizeLabel = Text(sizeText).font(font)
+                            let resolvedSize = context.resolve(sizeLabel)
+
+                            let maxNameHeight = CGFloat(maxLines - 1) * lineHeight
+                            let nameMeasureSize = CGSize(width: textRect.width, height: maxNameHeight)
+                            let nameSize = resolvedName.measure(in: nameMeasureSize)
+                            
+                            let actualNameHeight = min(nameSize.height, maxNameHeight)
+                            let sizeHeight = resolvedSize.measure(in: CGSize(width: textRect.width, height: lineHeight)).height
+                            
+                            let totalHeight = actualNameHeight + sizeHeight
+                            
+                            let nameRect = CGRect(x: textRect.minX, y: textRect.minY, width: textRect.width, height: actualNameHeight)
+                            context.draw(resolvedName, in: nameRect)
+                            
+                            let sizeRect = CGRect(x: textRect.minX, y: textRect.minY + actualNameHeight, width: textRect.width, height: sizeHeight)
+                            context.draw(resolvedSize, in: sizeRect)
+                        }
+                    }
                 }
             }
 
