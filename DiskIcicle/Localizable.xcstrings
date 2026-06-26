@@ -1644,6 +1644,89 @@
         }
       }
     },
+    "Only folders and .txt files are supported for drag and drop." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur Ordner und .txt-Dateien werden für Drag & Drop unterstützt."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μόνο φάκελοι και αρχεία .txt υποστηρίζονται για μεταφορά και απόθεση."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only folders and .txt files are supported for drag and drop."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo se admiten carpetas y archivos .txt para arrastrar y soltar."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seuls les dossiers et les fichiers .txt sont pris en charge pour le glisser-déposer."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per il trascinamento della selezione sono supportati solo cartelle e file .txt."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ドラッグ＆ドロップにはフォルダと.txtファイルのみがサポートされています。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "드래그 앤 드롭에는 폴더와 .txt 파일만 지원됩니다."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sürükle ve bırak işlemi için yalnızca klasörler ve .txt dosyaları desteklenir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Для перетягування підтримуються лише папки та файли .txt."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chỉ các thư mục và tệp .txt được hỗ trợ để kéo và thả."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仅支持拖放文件夹和 .txt 文件。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "僅支援拖放資料夾和 .txt 檔案。"
+          }
+        }
+      }
+    },
     "Other\n%@" : {
       "localizations" : {
         "de" : {

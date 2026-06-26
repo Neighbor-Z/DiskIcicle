@@ -1,6 +1,7 @@
 import SwiftUI
 #if os(macOS)
 import AppKit
+import UniformTypeIdentifiers
 #endif
 
 struct ContentView: View {
@@ -71,6 +72,26 @@ struct ContentView: View {
                 mapPanel(showBreadcrumbOverlay: false)
             }
             .navigationTitle(viewModel.currentRoot?.name ?? String(localized: "Icicle View"))
+            .onDrop(of: [.fileURL], isTargeted: nil) { providers in
+                guard let provider = providers.first else { return false }
+                _ = provider.loadObject(ofClass: URL.self) { url, error in
+                    guard let url = url else { return }
+                    DispatchQueue.main.async {
+                        var isDirectory: ObjCBool = false
+                        let exists = FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory)
+                        if exists {
+                            if isDirectory.boolValue {
+                                viewModel.startScan(rootURL: url)
+                            } else if url.pathExtension.lowercased() == "txt" {
+                                viewModel.startScan(rootURL: url)
+                            } else {
+                                viewModel.errorMessage = String(localized: "Only folders and .txt files are supported for drag and drop.")
+                            }
+                        }
+                    }
+                }
+                return true
+            }
         }
         .toolbar {
             ToolbarItem(placement: .navigation) {
