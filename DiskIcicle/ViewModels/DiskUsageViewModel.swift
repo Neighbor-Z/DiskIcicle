@@ -1,8 +1,12 @@
 import Foundation
 import SwiftUI
+import UserNotifications
 #if canImport(UIKit)
 import UIKit
 import UniformTypeIdentifiers
+#endif
+#if os(macOS)
+import AppKit
 #endif
 
 @MainActor
@@ -164,6 +168,8 @@ final class DiskUsageViewModel: ObservableObject {
                 selectedNode = node
                 isScanning = false
                 
+                sendScanCompleteNotification(name: node.name)
+                
                 scanTask = nil
             } catch {
                 if Task.isCancelled { return }
@@ -227,6 +233,32 @@ final class DiskUsageViewModel: ObservableObject {
             }
         }
         return []
+    }
+
+    private func sendScanCompleteNotification(name: String) {
+        #if os(macOS)
+        let isFocused = NSApp.isActive && NSApp.keyWindow != nil
+        guard !isFocused else { return }
+        #elseif canImport(UIKit)
+        guard UIApplication.shared.applicationState != .active else { return }
+        #else
+        return
+        #endif
+        
+        Task {
+            do {
+                let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert])
+                if granted {
+                    let content = UNMutableNotificationContent()
+                    content.title = String(localized: "Scan Completed")
+                    content.body = String(format: String(localized: "Finished scanning: %@"), name)
+                    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+                    try await UNUserNotificationCenter.current().add(request)
+                }
+            } catch {
+                print("Failed to send notification: \(error)")
+            }
+        }
     }
 }
 
