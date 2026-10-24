@@ -12,6 +12,7 @@ struct ContentView: View {
     // Initial height 320, used to control the bottom panel
     @State private var panelHeight: CGFloat = 320
     @State private var isDraggingPanel: Bool = false
+    @State private var isSidebarPresented = true
     @State private var showingRescanConfirmation = false
 
     var body: some View {
@@ -26,9 +27,22 @@ struct ContentView: View {
             }
             #endif
         }
+        #if !os(macOS)
+        .background {
+            Color(UIColor.systemGroupedBackground)
+                .ignoresSafeArea()
+        }
+        #endif
         .alert("Error", isPresented: Binding(
-            get: { viewModel.errorMessage != nil },
-            set: { if !$0 { viewModel.errorMessage = nil } }
+            get: {
+                viewModel.errorMessage != nil && horizontalSizeClass != .compact
+            },
+            set: { isPresented in
+                guard !isPresented else { return }
+                Task { @MainActor in
+                    viewModel.errorMessage = nil
+                }
+            }
         )) {
             Button("OK", role: .cancel) { }
         } message: {
@@ -36,15 +50,18 @@ struct ContentView: View {
                 Text(msg)
             }
         }
-        .alert("Confirm Rescan", isPresented: $showingRescanConfirmation) {
-            Button("Rescan", role: .destructive) {
-                #if os(macOS)
-                if let url = viewModel.rootNode?.url {
-                    viewModel.startScan(rootURL: url)
+        .alert("Confirm Rescan", isPresented: Binding(
+            get: {
+                showingRescanConfirmation && horizontalSizeClass != .compact
+            },
+            set: { isPresented in
+                if !isPresented {
+                    showingRescanConfirmation = false
                 }
-                #else
-                viewModel.startScan()
-                #endif
+            }
+        )) {
+            Button("Rescan", role: .destructive) {
+                startRescan()
             }
             Button("Cancel", role: .cancel) {
                 showingRescanConfirmation = false
@@ -52,6 +69,16 @@ struct ContentView: View {
         } message: {
             Text("Scanning the disk may take a significant amount of time. Do you want to rescan?")
         }
+    }
+
+    private func startRescan() {
+        #if os(macOS)
+        if let url = viewModel.rootNode?.url {
+            viewModel.startScan(rootURL: url)
+        }
+        #else
+        viewModel.startScan()
+        #endif
     }
 
     // MARK: - macOS Layout
@@ -106,6 +133,15 @@ struct ContentView: View {
                 }
                 .disabled(viewModel.isScanning)
             }
+            ToolbarItem(placement: .automatic) {
+                Button(action: {
+                    showingRescanConfirmation = true
+                }) {
+                    Image(systemName: "arrow.clockwise")
+                }
+                .help("Rescan Directory")
+                .disabled(viewModel.isScanning || viewModel.rootNode == nil)
+            }
         }
     }
 
@@ -132,7 +168,95 @@ struct ContentView: View {
     #else
 
     // MARK: - Phone Layout (Bottom Sheet Style)
+    @ViewBuilder
     private var phoneLayout: some View {
+        if #available(iOS 16.0, *) {
+            nativePhoneLayout
+        } else {
+            legacyPhoneLayout
+        }
+    }
+
+    @available(iOS 16.0, *)
+    private var nativePhoneLayout: some View {
+        mapPanel()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .sheet(isPresented: $isSidebarPresented) {
+                nativeSidebarPanel
+            }
+            .onAppear {
+                isSidebarPresented = true
+            }
+    }
+
+    @available(iOS 16.0, *)
+    @ViewBuilder
+    private var nativeSidebarPanel: some View {
+        if #available(iOS 16.4, *) {
+            sidebarPanel
+                .presentationBackgroundInteraction(.enabled(upThrough: .medium))
+        } else {
+            sidebarPanel
+        }
+    }
+
+    @available(iOS 16.0, *)
+    private var sidebarPanel: some View {
+        NavigationStack {
+            sidebar(showingHeader: false)
+                .navigationTitle("Disk Usage")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            viewModel.stepUp()
+                        } label: {
+                            Label("Upper Level", systemImage: "chevron.backward")
+                        }
+                        .labelStyle(.titleAndIcon)
+                        .fixedSize(horizontal: true, vertical: false)
+                        .disabled(viewModel.breadcrumb.count <= 1)
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Scan") {
+                            showingRescanConfirmation = true
+                        }
+                        .fixedSize(horizontal: true, vertical: false)
+                        .disabled(viewModel.isScanning)
+                    }
+                }
+        }
+        .alert("Error", isPresented: Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { isPresented in
+                guard !isPresented else { return }
+                Task { @MainActor in
+                    viewModel.errorMessage = nil
+                }
+            }
+        )) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            if let msg = viewModel.errorMessage {
+                Text(msg)
+            }
+        }
+        .alert("Confirm Rescan", isPresented: $showingRescanConfirmation) {
+            Button("Rescan", role: .destructive) {
+                startRescan()
+            }
+            Button("Cancel", role: .cancel) {
+                showingRescanConfirmation = false
+            }
+        } message: {
+            Text("Scanning the disk may take a significant amount of time. Do you want to rescan?")
+        }
+        .presentationDetents([.height(96), .fraction(0.35), .medium, .large])
+        .presentationDragIndicator(.visible)
+        .interactiveDismissDisabled()
+    }
+
+    private var legacyPhoneLayout: some View {
         GeometryReader { proxy in
             VStack(spacing: 0) {
                 // 1. Chart area (automatically takes up remaining space)
@@ -159,7 +283,7 @@ struct ContentView: View {
                     )
 
                 // 3. Bottom list (variable height)
-                sidebar
+                sidebar()
                     .frame(height: panelHeight)
             }
         }
@@ -206,6 +330,7 @@ struct ContentView: View {
                     Divider()
                 }
                 mapPanel(showBreadcrumbOverlay: false)
+                    .ignoresSafeArea(.container, edges: [.trailing, .bottom])
             }
             .navigationTitle(viewModel.currentRoot?.name ?? String(localized: "Icicle View"))
             .navigationBarTitleDisplayMode(.inline)
@@ -300,25 +425,27 @@ struct ContentView: View {
         .clipShape(Rectangle()) // Ensure content does not overflow
     }
 
-    private var sidebar: some View {
+    private func sidebar(showingHeader: Bool = true) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("Disk Usage")
-                    .font(.headline)
-                Spacer()
-                Button("Upper Level") {
-                    viewModel.stepUp()
+            if showingHeader {
+                HStack {
+                    Text("Disk Usage")
+                        .font(.headline)
+                    Spacer()
+                    Button("Upper Level") {
+                        viewModel.stepUp()
+                    }
+                    .disabled(viewModel.breadcrumb.count <= 1)
+
+                    Button("Scan") {
+                        showingRescanConfirmation = true
+                    }
+                    .padding(.leading, 8)
+                    .disabled(viewModel.isScanning)
                 }
-                .disabled(viewModel.breadcrumb.count <= 1)
-                
-                Button("Scan") {
-                    showingRescanConfirmation = true
-                }
-                .padding(.leading, 8)
-                .disabled(viewModel.isScanning)
+                .padding(.horizontal, 16)
+                .padding(.top, 12)
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 12)
 
             // Selected node details
             if let selected = viewModel.selectedNode {
