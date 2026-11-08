@@ -14,6 +14,9 @@ struct ContentView: View {
     @State private var isDraggingPanel: Bool = false
     @State private var isSidebarPresented = true
     @State private var showingRescanConfirmation = false
+    #if os(macOS)
+    @State private var isCanvasDropTargeted = false
+    #endif
 
     var body: some View {
         Group {
@@ -96,29 +99,9 @@ struct ContentView: View {
                         .background(.bar)
                     Divider()
                 }
-                mapPanel(showBreadcrumbOverlay: false)
+                macOSDropCanvas
             }
             .navigationTitle(viewModel.currentRoot?.name ?? String(localized: "Icicle View"))
-            .onDrop(of: [.fileURL], isTargeted: nil) { providers in
-                guard let provider = providers.first else { return false }
-                _ = provider.loadObject(ofClass: URL.self) { url, error in
-                    guard let url = url else { return }
-                    DispatchQueue.main.async {
-                        var isDirectory: ObjCBool = false
-                        let exists = FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory)
-                        if exists {
-                            if isDirectory.boolValue {
-                                viewModel.startScan(rootURL: url)
-                            } else if url.pathExtension.lowercased() == "txt" {
-                                viewModel.startScan(rootURL: url)
-                            } else {
-                                viewModel.errorMessage = String(localized: "Only folders and .txt files are supported for drag and drop.")
-                            }
-                        }
-                    }
-                }
-                return true
-            }
         }
         .toolbar {
             ToolbarItem(placement: .navigation) {
@@ -143,6 +126,52 @@ struct ContentView: View {
                 .disabled(viewModel.isScanning || viewModel.rootNode == nil)
             }
         }
+    }
+
+    private var macOSDropCanvas: some View {
+        mapPanel(showBreadcrumbOverlay: false)
+            .overlay {
+                if isCanvasDropTargeted {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.accentColor.opacity(0.08))
+                        RoundedRectangle(cornerRadius: 16)
+                            .strokeBorder(
+                                Color.accentColor,
+                                style: StrokeStyle(lineWidth: 4, lineCap: .round, dash: [14, 10])
+                            )
+                        Text("Drop to Scan")
+                            .font(.title2.weight(.semibold))
+                            .foregroundStyle(.primary)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 16)
+                            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+                    }
+                    .padding(12)
+                    .allowsHitTesting(false)
+                }
+            }
+            .onDrop(of: [.fileURL], isTargeted: $isCanvasDropTargeted) { providers in
+                isCanvasDropTargeted = false
+                guard let provider = providers.first else { return false }
+                _ = provider.loadObject(ofClass: URL.self) { url, error in
+                    guard let url = url else { return }
+                    DispatchQueue.main.async {
+                        var isDirectory: ObjCBool = false
+                        let exists = FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory)
+                        if exists {
+                            if isDirectory.boolValue {
+                                viewModel.startScan(rootURL: url)
+                            } else if url.pathExtension.lowercased() == "txt" {
+                                viewModel.startScan(rootURL: url)
+                            } else {
+                                viewModel.errorMessage = String(localized: "Only folders and .txt files are supported for drag and drop.")
+                            }
+                        }
+                    }
+                }
+                return true
+            }
     }
 
     private func toggleSidebar() {
